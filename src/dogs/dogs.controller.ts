@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { CreateDogDto } from './create-dogs.dto';
+import { Response } from 'express';
 
 @Controller('dogs')
 export class DogsController {
@@ -13,5 +14,16 @@ export class DogsController {
   async create(@Body() createDogDto: CreateDogDto): Promise<string> {
     console.log(createDogDto);
     return 'this action creates a new dog';
+  }
+
+  // using the Response object
+  @Post()
+  createWithResponse(@Res() res: Response): void {
+    res.status(HttpStatus.CREATED).send();
+  }
+
+  @Get('response')
+  findAllWithResponse(@Res() res: Response): void {
+     res.status(HttpStatus.OK).json([]);
   }
 }
