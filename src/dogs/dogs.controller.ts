@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { CreateDogDto } from './create-dogs.dto';
 
 @Controller('dogs')
 export class DogsController {
@@ -6,5 +7,11 @@ export class DogsController {
   @Get()
   async findAll(): Promise<any[]> {
     return [];
+  }
+
+  @Post()
+  async create(@Body() createDogDto: CreateDogDto): Promise<string> {
+    console.log(createDogDto);
+    return 'this action creates a new dog';
   }
 }
