@@ -16,7 +16,7 @@ export class DogsController {
     return 'this action creates a new dog';
   }
 
-  // using the Response object
+  // using the Response object, not recommended and must be used with care but gives more control
   @Post()
   createWithResponse(@Res() res: Response): void {
     res.status(HttpStatus.CREATED).send();
