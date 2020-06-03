@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Delete, Put, Query, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, Put, Query, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
@@ -13,9 +13,10 @@ export class CatsController {
     return 'This action adds a new cat';
   }
   
-  
+
   @Get()
   async findAll(): Promise<Cat[]> {
+    
     return this.catsService.findAll();
   }
 
@@ -39,6 +40,11 @@ export class CatsController {
   @Delete(':id')
   remove(@Param('id') id: string): string {
     return `This action removes a #${id} cat`;
+  }
+
+  @Get('error')
+  throwError(): void {
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
 }
 
