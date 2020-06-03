@@ -47,8 +47,8 @@ export class CatsController {
     throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
 
-  @Get(':index')
-  // here ParseIntPipe is a pipe that ensures index is parsed into a number
+  @Get('item/:index')
+  // here ParseIntPipe is a pipe that checks if index is a number and throws an exception if it isn't
   findAnotherOne(@Param('index', ParseIntPipe) index: number): Cat {
     return this.catsService.findOne(index);
   }
