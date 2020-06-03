@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Delete, Put, Query, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, Put, Query, Body, HttpException, HttpStatus, ParseIntPipe } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
@@ -45,6 +45,12 @@ export class CatsController {
   @Get('error')
   throwError(): void {
     throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+  }
+
+  @Get(':index')
+  // here ParseIntPipe is a pipe that ensures index is parsed into a number
+  findAnotherOne(@Param('index', ParseIntPipe) index: number): Cat {
+    return this.catsService.findOne(index);
   }
 }
 
